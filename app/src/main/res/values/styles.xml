@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="DialogStyle" parent="Base.Theme.AppCompat.Dialog">
+        <item name="android:windowMinWidthMajor">80%</item>
+        <item name="android:windowMinWidthMinor">80%</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="roundedCornerImageView" parent="">
+        <item name="cornerSize">6dp</item>
+    </style>
+
+</resources>
