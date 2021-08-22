@@ -1,30 +1,43 @@
 package com.example.core.toturials.data.source.local
 
 import android.content.Context
+import com.example.core.toturials.data.source.local.dao.TutorialsDao
 import com.example.core.toturials.data.source.local.model.Tutorial
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import io.reactivex.Flowable
 import io.reactivex.Observable
-import io.reactivex.ObservableEmitter
 import java.io.IOException
 import java.io.InputStream
 import java.lang.reflect.Type
 import java.nio.charset.Charset
 import javax.inject.Inject
 
-class TutorialLocalDataSource @Inject constructor(private val context: Context) {
+class TutorialLocalDataSource @Inject constructor(
+    private val context: Context,
+    private val tutorialsDao: TutorialsDao,
+    private val gson: Gson
+) {
 
-    fun getTutorials(): Observable<List<Tutorial>> {
-        return Observable.create {
-            val jsonString = handleJsonString(it)
-            jsonString?.let {jsonStr->
-                it.onNext(mapJsonStringToListOfTutorial(jsonStr))
+
+    fun getTutorials(): Flowable<List<Tutorial>> {
+        return tutorialsDao.getTutorials()
+            .flatMap {
+                if (it.isEmpty()) {
+                    handleLoadingFromFileAndCaching()
+                }
+                Flowable.just(it)
             }
-            it.onComplete()
-        }
     }
 
+    private fun handleLoadingFromFileAndCaching() {
+        handleJsonString().flatMap {
+            cacheTutorials(mapJsonStringToListOfTutorial(it))
+            Observable.just(true)
+        }.subscribe()
+    }
 
+    private fun cacheTutorials(tutorials: List<Tutorial>) = tutorialsDao.cacheTutorials(tutorials)
 
     private fun loadFromFile(): ByteArray {
         val inputStream: InputStream = context.assets.open("getListOfFilesResponse.json")
@@ -35,17 +48,18 @@ class TutorialLocalDataSource @Inject constructor(private val context: Context) 
         return buffer
     }
 
-    private fun handleJsonString(it: ObservableEmitter<List<Tutorial>>) =
-        try {
+    private fun handleJsonString(): Observable<String> {
+        return try {
             val buffer = loadFromFile()
-            String(buffer, Charset.forName("UTF-8"))
+            val jsonStr = String(buffer, Charset.forName("UTF-8"))
+            Observable.just(jsonStr)
         } catch (e: IOException) {
-            it.onError(e.cause!!)
-            null
+            Observable.error(e)
         }
+    }
 
     private fun mapJsonStringToListOfTutorial(jsonString: String): List<Tutorial> {
         val listUserType: Type = object : TypeToken<List<Tutorial?>>() {}.type
-        return Gson().fromJson(jsonString, listUserType)
+        return gson.fromJson(jsonString, listUserType)
     }
 }

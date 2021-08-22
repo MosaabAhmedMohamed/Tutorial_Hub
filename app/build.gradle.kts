@@ -75,6 +75,8 @@ dependencies {
 
     // OkHttp, Retrofit
     implementation(RETROFIT.RETROFIT)
+    implementation("com.google.code.gson:gson:2.8.6")
+
 
     //RX
     implementation(RX.RXANDROID)

@@ -1,7 +1,7 @@
 package com.example.tutorialhub.di
 
 import android.app.Application
-import com.example.core.base.di.AppModule
+import com.example.core.core.di.AppModule
 import com.example.tutorialhub.app.TutorialHubApplication
 import dagger.BindsInstance
 import dagger.Component
