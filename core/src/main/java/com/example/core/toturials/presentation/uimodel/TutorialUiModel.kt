@@ -5,6 +5,6 @@ data class TutorialUiModel(
     val type: TutorialType?,
     val url: String?,
     val name: String?,
-    val localPath: String?,
-    val isDownloaded: Boolean = false
+    var localPath: String?,
+    var isDownloaded: Boolean = false
 )

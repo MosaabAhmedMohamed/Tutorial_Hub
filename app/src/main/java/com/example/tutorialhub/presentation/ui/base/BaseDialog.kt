@@ -2,12 +2,12 @@ package com.example.tutorialhub.presentation.ui.base
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.DialogFragment
 import com.example.tutorialhub.R
 import com.example.tutorialhub.presentation.ui.base.ext.hideLoading
 import com.example.tutorialhub.presentation.ui.base.ext.showLoading
+import dagger.android.support.DaggerDialogFragment
 
-abstract class BaseDialog : DialogFragment() {
+abstract class BaseDialog : DaggerDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

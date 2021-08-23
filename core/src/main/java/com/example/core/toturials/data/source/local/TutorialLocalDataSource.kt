@@ -62,4 +62,8 @@ class TutorialLocalDataSource @Inject constructor(
         val listUserType: Type = object : TypeToken<List<Tutorial?>>() {}.type
         return gson.fromJson(jsonString, listUserType)
     }
+
+    fun updateTutorialInLocal(tutorial: Tutorial) {
+        tutorialsDao.insertTutorial(tutorial)
+    }
 }

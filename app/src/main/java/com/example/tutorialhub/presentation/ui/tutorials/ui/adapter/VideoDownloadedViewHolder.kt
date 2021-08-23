@@ -1,4 +1,4 @@
-package com.example.tutorialhub.presentation.ui.tutorials.adapter
+package com.example.tutorialhub.presentation.ui.tutorials.ui.adapter
 
 import android.view.View
 import com.example.core.toturials.presentation.uimodel.TutorialUiModel

@@ -6,4 +6,6 @@
     <string name="release_date">"Release Date: "</string>
     <string name="rating">"Rating: "</string>
     <string name="overview">"Overview "</string>
+    <string name="download_desc">Please wait! This may take a moment.</string>
+    <string name="full_progress">/100</string>
 </resources>

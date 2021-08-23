@@ -9,6 +9,7 @@
         <entry key="app/src/main/res/drawable/ic_video.xml" value="0.10925925925925926" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22192028985507245" />
         <entry key="app/src/main/res/layout/activity_tutorials.xml" value="0.20108695652173914" />
+        <entry key="app/src/main/res/layout/dialog_downloading.xml" value="0.321875" />
         <entry key="app/src/main/res/layout/dialog_retry.xml" value="0.20108695652173914" />
         <entry key="app/src/main/res/layout/item_loading.xml" value="0.20108695652173914" />
         <entry key="app/src/main/res/layout/item_pdf.xml" value="0.1" />
@@ -17,6 +18,7 @@
         <entry key="app/src/main/res/layout/item_video.xml" value="0.1952662721893491" />
         <entry key="app/src/main/res/layout/item_video_download.xml" value="0.17223910840932116" />
         <entry key="app/src/main/res/layout/item_video_downloaded.xml" value="0.17223910840932116" />
+        <entry key="app/src/main/res/xml/provider_paths.xml" value="0.1094224924012158" />
       </map>
     </option>
   </component>
