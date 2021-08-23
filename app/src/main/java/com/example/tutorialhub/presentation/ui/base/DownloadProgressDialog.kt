@@ -35,10 +35,7 @@ class DownloadProgressDialog : BaseDialog() {
 
     override fun init() {
         super.init()
-        allowForcing()
         observeProgress()
-
-
     }
 
     private fun observeProgress() {
