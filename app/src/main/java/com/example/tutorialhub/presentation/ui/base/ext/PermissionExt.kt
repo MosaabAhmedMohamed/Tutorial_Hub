@@ -10,9 +10,7 @@ import androidx.core.content.ContextCompat
 fun Activity.isStoragePermissionGranted(): Boolean {
     val read_permission =
         ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-    val write_permission =
-        ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    return read_permission == PackageManager.PERMISSION_GRANTED && write_permission == PackageManager.PERMISSION_GRANTED
+    return read_permission == PackageManager.PERMISSION_GRANTED
 
 }
 
@@ -20,8 +18,7 @@ fun Activity.isStoragePermissionGranted(): Boolean {
 fun Activity.askForFilePermission() {
     ActivityCompat.requestPermissions(
         this, arrayOf(
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
+            Manifest.permission.READ_EXTERNAL_STORAGE
         ),
         FILE_ACCESS_PERMISSION
     )
