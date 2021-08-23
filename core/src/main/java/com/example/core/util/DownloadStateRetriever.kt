@@ -6,6 +6,8 @@ import com.example.core.base.ext.intValue
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.atomic.AtomicBoolean
+import java.lang.Exception
+
 
 class DownloadStateRetriever(private val downloadManager: DownloadManager) {
 
@@ -34,8 +36,15 @@ class DownloadStateRetriever(private val downloadManager: DownloadManager) {
         downloading: AtomicBoolean
     ) {
         if (isSuccessful(cursor)) {
-            downloading.set(false)
-            cursor.close()
+            try {
+                downloading.set(false)
+                cursor.close()
+            } catch (e: Exception) {
+                downloading.set(false)
+            } finally {
+                cursor.close()
+            }
+
         }
     }
 

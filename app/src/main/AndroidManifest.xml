@@ -12,7 +12,7 @@
     <queries>
         <intent>
             <action android:name="android.intent.action.GET_CONTENT" />
-            <data android:mimeType="image/*" />
+            <data android:mimeType="video/*" />
         </intent>
     </queries>
 

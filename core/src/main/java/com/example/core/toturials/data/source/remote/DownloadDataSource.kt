@@ -11,15 +11,20 @@ class DownloadDataSource @Inject constructor(private val context: Context) {
         folderPath: String,
         downloadUrl: String,
         name: String?
-    ): Pair<DownloadManager, Long> {
+    ): Pair<DownloadManager?, Long?> {
         val downloadUri = Uri.parse(downloadUrl.trim())
         val mFilePath = "file://${folderPath}/${name}"
-        val req = DownloadManager.Request(downloadUri);
-        req.setDestinationUri(Uri.parse(mFilePath));
-        req.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        val dm = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        val opId = dm.enqueue(req);
-        return Pair(dm, opId)
+        return try {
+            val req = DownloadManager.Request(downloadUri);
+            req.setDestinationUri(Uri.parse(mFilePath));
+            req.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+            val dm = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+            val opId = dm.enqueue(req);
+            Pair(dm, opId)
+
+        } catch (e: IllegalArgumentException) {
+            Pair(null, null)
+        }
     }
 
 

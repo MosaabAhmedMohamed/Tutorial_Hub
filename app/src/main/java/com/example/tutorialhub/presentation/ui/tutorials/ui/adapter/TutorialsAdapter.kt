@@ -1,5 +1,6 @@
 package com.example.tutorialhub.presentation.ui.tutorials.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,11 +9,12 @@ import com.example.core.toturials.presentation.uimodel.TutorialUiModel
 import com.example.tutorialhub.R
 
 class TutorialsAdapter(
-    var tutorials: List<TutorialUiModel?>,
-    private val clickAction: (item: TutorialUiModel) -> Unit
+    private val downloadClickAction: (item: TutorialUiModel) -> Unit,
+    private val openClickAction: (item: TutorialUiModel) -> Unit
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    private var tutorials: List<TutorialUiModel?> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -51,11 +53,23 @@ class TutorialsAdapter(
         holder: RecyclerView.ViewHolder,
         position: Int
     ) {
-         holder.itemView.setOnClickListener {
-             tutorials[position]?.let {
-                 clickAction.invoke(it)
-             }
-         }
+        when (getItemViewType(position)) {
+            PDF_DOWNLOAD_VIEW, VIDEO_DOWNLOAD_VIEW -> {
+                holder.itemView.setOnClickListener {
+                    tutorials[position]?.let {
+                        downloadClickAction.invoke(it)
+                    }
+                }
+            }
+            else -> {
+                holder.itemView.setOnClickListener {
+                    tutorials[position]?.let {
+                        openClickAction.invoke(it)
+                    }
+                }
+            }
+        }
+
     }
 
     private fun handleBinding(
@@ -79,13 +93,19 @@ class TutorialsAdapter(
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData(result: List<TutorialUiModel>) {
+        tutorials = result
+        notifyDataSetChanged()
+    }
+
     override fun getItemCount() = tutorials.size ?: 0
 
     override fun getItemViewType(position: Int): Int {
         val item = tutorials[position]
         return when (item?.type) {
             TutorialType.PDF -> getPDFViewType(item.isDownloaded)
-            else -> getVIDEOViewType(item?.isDownloaded?: false)
+            else -> getVIDEOViewType(item?.isDownloaded ?: false)
         }
     }
 

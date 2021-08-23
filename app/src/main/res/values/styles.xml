@@ -16,4 +16,13 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="HorizontalProgressBarStyle" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:indeterminateTint">@color/red</item>
+        <item name="android:indeterminateTintMode">src_atop</item>
+        <item name="android:max">100</item>
+        <item name="android:progress">65</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateBehavior">cycle</item>
+    </style>
+
 </resources>

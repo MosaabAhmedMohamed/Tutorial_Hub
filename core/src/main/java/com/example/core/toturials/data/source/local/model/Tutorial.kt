@@ -30,8 +30,8 @@ data class Tutorial(
     val name: String?,
 
     @ColumnInfo(name = "localPath")
-    val localPath: String?,
+    var localPath: String?,
 
     @ColumnInfo(name = "isDownloaded")
-    val isDownloaded: Boolean = false,
+    var isDownloaded: Boolean = false,
 )

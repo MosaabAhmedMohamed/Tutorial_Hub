@@ -3,6 +3,7 @@ package com.example.core.toturials.data.source.local.dao
 import androidx.room.*
 import com.example.core.toturials.data.source.local.model.Tutorial
 import io.reactivex.Flowable
+import io.reactivex.Single
 
 @Dao
 interface TutorialsDao {
@@ -17,7 +18,7 @@ interface TutorialsDao {
     fun getTutorials(): Flowable<List<Tutorial>>
 
     @Query("select * from Tutorial WHERE id = :tutorialId")
-    fun getTutorial(tutorialId:Int): Tutorial
+    fun getTutorial(tutorialId:Int): Single<Tutorial>
 
     @Query("delete from Tutorial")
     fun deleteAllEntries()

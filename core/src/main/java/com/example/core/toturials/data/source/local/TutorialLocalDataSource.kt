@@ -7,6 +7,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import io.reactivex.Flowable
 import io.reactivex.Observable
+import io.reactivex.Single
 import java.io.IOException
 import java.io.InputStream
 import java.lang.reflect.Type
@@ -65,5 +66,9 @@ class TutorialLocalDataSource @Inject constructor(
 
     fun updateTutorialInLocal(tutorial: Tutorial) {
         tutorialsDao.insertTutorial(tutorial)
+    }
+
+    fun getTutorial(id: Int): Single<Tutorial> {
+        return tutorialsDao.getTutorial(id)
     }
 }

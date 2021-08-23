@@ -1,9 +1,6 @@
 package com.example.tutorialhub.presentation.ui.base
 
-import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,17 +37,18 @@ class DownloadProgressDialog : BaseDialog() {
         super.init()
         allowForcing()
         observeProgress()
+
+
     }
 
     private fun observeProgress() {
-        tutorialsViewModel.progressLD.observe(viewLifecycleOwner, {
+        tutorialsViewModel.downloadProgressLD.observe(viewLifecycleOwner, {
             if (it == 100) {
                 dismiss()
             } else {
                 binding.tvCurrentProgress.text = it.toString()
             }
         })
-
     }
 
     companion object {

@@ -6,6 +6,7 @@ import com.example.core.toturials.data.source.local.model.Tutorial
 import com.example.core.toturials.data.source.remote.DownloadDataSource
 import com.example.core.toturials.domain.repository.TutorialRepository
 import io.reactivex.Flowable
+import io.reactivex.Single
 import javax.inject.Inject
 
 class TutorialsRepositoryImpl @Inject constructor(
@@ -22,12 +23,16 @@ class TutorialsRepositoryImpl @Inject constructor(
         folderPath: String,
         downloadUrl: String,
         name: String?
-    ): Pair<DownloadManager, Long> {
+    ): Pair<DownloadManager?, Long?> {
         return downloadDataSource.download(folderPath,downloadUrl,name)
     }
 
     override fun updateTutorialInLocal(tutorial: Tutorial) {
         tutorialLocalDataSource.updateTutorialInLocal(tutorial)
+    }
+
+    override fun getTutorial(id: Int): Single<Tutorial> {
+      return tutorialLocalDataSource.getTutorial(id)
     }
 
 }
